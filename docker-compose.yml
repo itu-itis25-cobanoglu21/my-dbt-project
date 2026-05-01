@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  # 1. Veri Ambarımız (PostgreSQL)
+  
   postgres:
     image: postgres:15
     container_name: dbt_postgres
@@ -19,7 +19,7 @@ services:
       timeout: 5s
       retries: 5
 
-  # 2. dbt Core Konteynerimiz
+  
   dbt:
     image: ghcr.io/dbt-labs/dbt-postgres:1.7.latest
     container_name: dbt_core
@@ -29,7 +29,10 @@ services:
     volumes:
       - .:/usr/app
     working_dir: /usr/app
-    # dbt'yi interaktif kullanmak için konteyneri açık tutuyoruz
+    environment:                                
+      - DBT_PROFILES_DIR=/usr/app/airbnb_dbt    
+    
     entrypoint: ["tail", "-f", "/dev/null"]
+
 volumes:
   pgdata:

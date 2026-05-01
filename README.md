@@ -82,7 +82,7 @@ When running `dbt show --select report_premium_stats`, you will see the aggregat
 When running `dbt run` and `dbt test`, you should expect a completely green output indicating all models were created and all data quality constraints passed:
 ```text
 Completed successfully
-Done. PASS=5 WARN=0 ERROR=0 SKIP=0 TOTAL=5
+Done. PASS=4 WARN=0 ERROR=0 SKIP=0 TOTAL=4
 ```
 
 ## 6. AI Usage Disclosure
