@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  # 1. Veri Ambarımız (PostgreSQL)
+  postgres:
+    image: postgres:15
+    container_name: dbt_postgres
+    environment:
+      POSTGRES_USER: dbt_user
+      POSTGRES_PASSWORD: dbt_password
+      POSTGRES_DB: airbnb_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dbt_user -d airbnb_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # 2. dbt Core Konteynerimiz
+  dbt:
+    image: ghcr.io/dbt-labs/dbt-postgres:1.7.latest
+    container_name: dbt_core
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - .:/usr/app
+    working_dir: /usr/app
+    # dbt'yi interaktif kullanmak için konteyneri açık tutuyoruz
+    entrypoint: ["tail", "-f", "/dev/null"]
+volumes:
+  pgdata:

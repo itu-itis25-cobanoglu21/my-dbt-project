@@ -1,0 +1,7 @@
+# Ignore dbt compiled files and logs
+airbnb_dbt/target/
+airbnb_dbt/dbt_packages/
+logs/
+
+# Ignore OS system files
+.DS_Store

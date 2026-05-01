@@ -1,0 +1,19 @@
+version: 2
+
+models:
+  - name: airbnb_listings
+    description: "cleaned data from Kaggle."
+    columns:
+      - name: listing_id
+        description: "unique id's for every advert"
+        tests:
+          - unique
+          - not_null
+
+  - name: mart_airbnb_features
+    description: "numerical features matrix prepared for XGBoost."
+    columns:
+      - name: price_usd
+        description: "price for 1 night"
+        tests:
+          - not_null  
